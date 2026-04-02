@@ -1,28 +1,15 @@
-import yt_dlp
+from yt_dlp import YoutubeDL
 
-def download_video(url):
-    ydl_opts = {
-        # 'ios' ou 'tv' costumam pular o erro de login/bot
-        'format': 'bestvideo+bestaudio/best',
-        'merge_output_format': 'mp4',
-        'outtmpl': '%(title)s.%(ext)s',
-        
-        # FORÇA O DISFARCE (Isso resolve o erro de Sign in)
-        'extractor_args': {
-            'youtube': {
-                'player_client': ['tv'],
-            }
-        },
-    }
+# Configurações do yt-dlp
+ydl_opts = {
+    # Extrai os cookies do seu navegador padrão. 
+    # Substitua 'chrome' por 'edge', 'firefox', 'brave', 'opera', etc., dependendo do que você usa.
+    'cookiesfrombrowser': ('chrome',), 
+}
 
-    try:
-        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-            print("Disfarçando o script como TV e iniciando...")
-            ydl.download([url])
-            print("\nDownload concluído!")
-    except Exception as e:
-        print(f"\nErro persistente: {e}")
+# O URL que você quer baixar
+url = 'https://youtu.be/1_9BPqfXHlo?si=vm0hjhYxVHo9qM-Z'
 
-if __name__ == "__main__":
-    video_url = input("URL do YouTube: ")
-    download_video(video_url)
+# Executando o download com as opções
+with YoutubeDL(ydl_opts) as ydl:
+    ydl.download([url])
